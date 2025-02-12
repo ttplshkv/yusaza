@@ -1,7 +1,8 @@
 import React from 'react';
-import { useCart } from './CartContext';
-import CartItem from "./CartItem";
+import { useCart } from '../context/CartContext';
+import CartItem from "../components/items/CartItem";
 import {Link} from "react-router-dom";
+import MainButton from "../components/buttons/MainButton";
 
 function CartPage() {
     const { cart, removeFromCart } = useCart();  // Получаем состояние корзины и метод удаления
@@ -19,7 +20,7 @@ function CartPage() {
                 </ul>
             )}
             <p>Общая сумма: {countSum(cart)}</p>
-            <Link to="/pizzas">Перейти в меню пицц</Link>
+            <MainButton/>
         </div>
     );
 };

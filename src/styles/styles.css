@@ -1,0 +1,26 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.image {
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Ограничиваем 3 товара в строке */
+  gap: 20px; /* Расстояние между карточками */
+}
+
+
+.cart-button {
+  background: #dfb1ff;
+}
+
+.main-button {
+  background: #ffff40;
+}
+
