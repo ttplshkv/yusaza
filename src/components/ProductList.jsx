@@ -5,14 +5,12 @@ import '../styles/styles.css';
 import CartButton from "./buttons/CartButton";
 
 const ProductList = ({products}) => {
-    const {addToCart} = useCart();  // Используем хук для добавления товара в корзину
-
     return (
-        <div>
+        <div className="container">
             <h1>Меню</h1>
-            <div className="product-list">
+            <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 g-3">
                 {products.map((product) => (
-                    <ProductItem key={product.id} product={product} onAddToCart={addToCart}/>
+                    <ProductItem key={product.id} product={product}/>
                 ))}
 
             </div>

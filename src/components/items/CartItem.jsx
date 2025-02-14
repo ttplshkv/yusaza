@@ -1,13 +1,14 @@
 import React from 'react';
 import '../../styles/styles.css';
+import AddAndRemoveFromCartButton from "../buttons/AddAndRemoveFromCartButton";
 
-const CartItem = ({product, onRemoveFromCart}) => {
+const CartItem = ({product}) => {
     return (
         <div>
             <img className="image" src={product.image} alt={product.name}/>
 
             {product.name} - {product.price} руб., кол-во: {product.quantity}
-            <button onClick={() => onRemoveFromCart(product)}>Удалить из корзины</button>
+            <AddAndRemoveFromCartButton key={product.id} product={product}/>
         </div>
     );
 };

@@ -3,9 +3,10 @@ import { useCart } from '../context/CartContext';
 import CartItem from "../components/items/CartItem";
 import {Link} from "react-router-dom";
 import MainButton from "../components/buttons/MainButton";
+import ProductItem from "../components/items/ProductItem";
 
 function CartPage() {
-    const { cart, removeFromCart } = useCart();  // Получаем состояние корзины и метод удаления
+    const { cart } = useCart();
 
     return (
         <div>
@@ -13,13 +14,15 @@ function CartPage() {
             {cart.length === 0 ? (
                 <p>Корзина пуста</p>
             ) : (
-                <ul>
+                <ul className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 g-3">
                     {cart.map((product) => (
-                        <CartItem key={product.id} product={product} onRemoveFromCart={removeFromCart} />
+                        <ProductItem key={product.id} product={product} />
                     ))}
                 </ul>
             )}
+
             <p>Общая сумма: {countSum(cart)}</p>
+
             <MainButton/>
         </div>
     );

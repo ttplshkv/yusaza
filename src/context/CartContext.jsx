@@ -23,10 +23,10 @@ export const CartProvider = ({ children }) => {
     };
 
     // Метод для удаления товара из корзины
-    const removeFromCart = (product) => {
+    const removeFromCart = (productId) => {
         setCart((prevState) => {
             const updatedCart = prevState.map(item =>
-                item.id === product.id ? { ...item, quantity: item.quantity - 1 } : item
+                item.id === productId ? { ...item, quantity: item.quantity - 1 } : item
             ).filter(item => item.quantity > 0);
             return updatedCart;
         });

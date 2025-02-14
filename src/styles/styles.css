@@ -3,18 +3,18 @@
   text-align: center;
 }
 
-.image {
-  width: 250px;
-  height: 250px;
+.custom-img {
+  width: 70%;
+  height: 40%;
+  object-fit: contain;
+  background-color: white; /* Цвет фона для пустых зон */
   border-radius: 10px;
+  align-self: center;
 }
 
-.product-list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Ограничиваем 3 товара в строке */
-  gap: 20px; /* Расстояние между карточками */
+.custom-card {
+  height: 350px;
 }
-
 
 .cart-button {
   background: #dfb1ff;
