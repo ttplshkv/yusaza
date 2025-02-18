@@ -1,9 +1,9 @@
 const Product = require('./models/Product');
+const Order = require('./models/Order');
 
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const port = 5000;
 const app = express();
 
 app.use(cors({
@@ -15,18 +15,51 @@ app.use(express.json());
 
 app.get('/api/products', async (req, res) => {
     try {
-        const { category } = req.query;
+        const {category} = req.query;
         let products;
 
         if (category) {
-            products = await Product.find({ category });
+            products = await Product.find({category});
         } else {
             products = await Product.find();
         }
         res.json(products);
     } catch (error) {
         console.error('Ошибка при получении продуктов:', error);
-        res.status(500).json({ message: 'Ошибка сервера' });
+        res.status(500).json({message: 'Ошибка сервера'});
+    }
+});
+
+app.post('/api/orders', async (req, res) => {
+    try {
+        const {products, address, fullAmount} = req.body;
+
+        console.log("req: ", products, address, fullAmount);
+
+        // Проверка обязательных полей
+        if (!products || !Array.isArray(products) || products.length === 0 || !address || !fullAmount) {
+            return res.status(400).json({message: 'Некорректные данные заказа'});
+        }
+
+        // Проверка структуры products
+        for (const item of products) {
+            if (!item.productId || !item.quantity) {
+                return res.status(400).json({message: 'Каждый продукт должен содержать productId и quantity'});
+            }
+        }
+
+        const order = new Order({products, address, fullAmount});
+        await order.save();
+
+        res.status(200).json({
+            message: 'Заказ успешно создан', order: {
+                ...order.toObject(),
+                id: order._id, // Добавляем id как _id
+            }
+        });
+    } catch (error) {
+        console.error('Ошибка при получении продуктов:', error);
+        res.status(500).json({message: 'Ошибка сервера'});
     }
 });
 

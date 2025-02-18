@@ -1,27 +1,36 @@
 import React, {useState} from 'react';
-import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
-import ProductList from './components/ProductList';
+import {Link, Route, Routes, useLocation} from 'react-router-dom';
+import ProductList from './pages/ProductList';
 import CartPage from './pages/CartPage';
 import {CartProvider} from "./context/CartContext";
+import CartButton from "./components/buttons/CartButton/CartButton";
+import MainButton from "./components/buttons/MainButton";
 
 function App() {
     const [category, setCategory] = useState("pizza");
+    const location = useLocation();
 
     return (
-        <Router>
-            <div>
-                <Link to="/">
-                    <button onClick={() => setCategory("pizza")}>Пицца</button>
-                    <button onClick={() => setCategory("sushi")}>Суши</button>
-                </Link>
-            </div>
+        <div className="App">
+            {location.pathname === '/' && ( // Показываем CartButton и кнопки только на главной странице
+                <div>
+                    <CartButton/>
+                    <Link to="/">
+                        <div style={{float: "left"}}>
+                            <button className="btn" onClick={() => setCategory("pizza")}>Пицца</button>
+                            <button className="btn" onClick={() => setCategory("sushi")}>Суши</button>
+                        </div>
+                    </Link>
+                </div>
+            )}
+
             <CartProvider>
                 <Routes>
                     <Route path="/" element={<ProductList category={category}/>}/>
                     <Route path="/cart" element={<CartPage/>}/>
                 </Routes>
             </CartProvider>
-        </Router>
+        </div>
     );
 }
 

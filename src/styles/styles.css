@@ -1,6 +1,10 @@
 .App {
   font-family: sans-serif;
   text-align: center;
+  max-width: 1400px; /* Ограничиваем ширину */
+  width: 100%; /* Заполняем доступное пространство */
+  margin: 15px auto;
+  padding: 0 20px; /* Отступы от краёв экрана */
 }
 
 .custom-img {
@@ -10,17 +14,19 @@
   background-color: white; /* Цвет фона для пустых зон */
   border-radius: 10px;
   align-self: center;
+  margin-top: 10px;
 }
 
 .custom-card {
   height: 350px;
+  border-width: 2px;
+  border-color: #b9c6ff;
 }
 
-.cart-button {
-  background: #dfb1ff;
+.menu-container {
+  padding-top: 30px;
 }
 
-.main-button {
-  background: #ffff40;
+.btn:hover {
+  border-color: rgba(0, 123, 255, 0.5);
 }
-

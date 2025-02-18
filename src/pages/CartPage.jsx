@@ -1,30 +1,57 @@
 import React from 'react';
-import { useCart } from '../context/CartContext';
+import {useCart} from '../context/CartContext';
 import MainButton from "../components/buttons/MainButton";
 import ProductItem from "../components/items/ProductItem";
+import OrderService from "../API/OrderService";
 
-function CartPage() {
-    const { cart } = useCart();
+function CartPage({products, address}) {
+    const {cart} = useCart();
 
     return (
         <div>
-            <h1>Корзина</h1>
-            {cart.length === 0 ? (
-                <p>Корзина пуста</p>
-            ) : (
-                <ul className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 g-3">
-                    {cart.map((product) => (
-                        <ProductItem key={product.id} product={product} />
-                    ))}
-                </ul>
-            )}
-
-            <p>Общая сумма: {countSum(cart)}</p>
-
             <MainButton/>
+            <div style={{textAlign: "center"}}>
+                <h1 style={{textAlign: "center"}}>Корзина</h1>
+                {cart.length === 0 ? (
+                    <h3>Корзина пуста</h3>
+                ) : (
+                    <ul className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 g-3 d-flex justify-content-center">
+                        {cart.map((product) => (
+                            <ProductItem key={product.id} product={product}/>
+                        ))}
+                    </ul>
+                )}
+            </div>
+
+            <p style={{
+                borderTop: "1px solid #ccc",
+                margin: "20px 0",
+            }}>Общая сумма: {countSum(cart)}</p>
+
+            <button className="btn btn-primary" onClick={() => createOrder({ products: cartToIds(cart), address: "Какой-то адрес", fullAmount: countSum(cart) })}>
+                Оформить заказ
+            </button>
+
         </div>
     );
 };
+
+async function createOrder({products, address, fullAmount}) {
+    try {
+        const data = await OrderService.createOrder({products, address, fullAmount});
+        console.log("created order: ", data.order);
+        alert(`Заказ успешно создан! ID: ${data.order.id}`);
+    } catch (error) {
+        alert("Ошибка при оформлении заказа.");
+    }
+}
+
+function cartToIds(cart) {
+    return cart.map(product => ({
+        productId: product.id,
+        quantity: product.quantity
+    }));
+}
 
 function countSum(cart) {
     let sum = 0;
