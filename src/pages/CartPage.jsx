@@ -38,6 +38,11 @@ function CartPage({products, address}) {
 };
 
 async function createOrder({products, address, fullAmount}) {
+    if (products.length === 0) {
+        alert("Корзина пуста. Добавьте что-то для оформления заказа");
+        return;
+    }
+
     try {
         const data = await OrderService.createOrder({products, address, fullAmount});
         console.log("created order: ", data.order);

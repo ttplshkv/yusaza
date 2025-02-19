@@ -33,6 +33,28 @@ app.get('/api/products', async (req, res) => {
     }
 });
 
+app.get('/api/products/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findById(id);
+
+        console.log("product: ", product);
+
+        if (!product) {
+            return res.status(404).json({ message: "Продукт не найден" });
+        }
+
+        res.status(200).json({
+            message: "Продукт успешно получен",
+            product: product
+        });
+    } catch (error) {
+        console.error("Ошибка при получении продукта:", error);
+        res.status(500).json({ message: "Ошибка сервера" });
+    }
+});
+
+
 app.get('/api/orders', async (req, res) => {
     try {
         const orders = await Order.find();

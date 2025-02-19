@@ -25,14 +25,21 @@ function App() {
                 </div>
             )}
 
-            <CartProvider>
-                <Routes>
-                    <Route path="/" element={<ProductList category={category}/>}/>
-                    <Route path="/cart" element={<CartPage/>}/>
-                </Routes>
-            </CartProvider>
             <Routes>
-                <Route path="/orders" element={<OrdersPage/>}/>
+                <Route path="/" element={
+                    <CartProvider>
+                        <ProductList category={category}/>
+                    </CartProvider>
+                }/>
+                <Route path="/cart" element={
+                    <CartProvider>
+                        <CartPage/>
+                    </CartProvider>
+                }/>
+
+                <Route path="/orders" element={
+                    <OrdersPage/>
+                }/>
             </Routes>
         </div>
     );

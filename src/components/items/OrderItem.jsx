@@ -1,8 +1,12 @@
 import React from 'react';
+import useOrderProducts from "../../hooks/useOrderProducts";
 
 const OrderItem = ({ order }) => {
+    const { products, error } = useOrderProducts(order);
 
-    console.log("orderItem", order);
+    if (error) {
+        return <div className="error">{error}</div>;
+    }
 
     return (
         <div className="border p-4 rounded-lg shadow-md">
@@ -12,9 +16,9 @@ const OrderItem = ({ order }) => {
 
             <h3 className="mt-2 font-semibold">Товары:</h3>
             <ul className="list-disc pl-4">
-                {order.products.map((item) => (
+                {products.map((item) => (
                     <li key={item._id}>
-                        <p>Товар ID: {item.productId}</p>
+                        <p><strong>{item.title}</strong></p>
                         <p>Количество: {item.quantity}</p>
                     </li>
                 ))}
