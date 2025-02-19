@@ -23,7 +23,10 @@ app.get('/api/products', async (req, res) => {
         } else {
             products = await Product.find();
         }
-        res.json(products);
+        res.status(200).json({
+            message: "Продукты успешно получены",
+            products: products
+        });
     } catch (error) {
         console.error('Ошибка при получении продуктов:', error);
         res.status(500).json({message: 'Ошибка сервера'});

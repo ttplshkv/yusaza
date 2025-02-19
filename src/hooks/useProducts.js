@@ -11,10 +11,10 @@ const useProducts = (category) => {
             try {
                 const data = await ProductService.getProductsByCategory(category);
 
-                if (data && Array.isArray(data.data)) {
-                    setProducts(data.data);
+                if (data && Array.isArray(data.data.products)) {
+                    setProducts(data.data.products);
                 } else {
-                    console.error("Ожидался массив, но получено:", data.data);
+                    console.error("Ожидался массив, но получено:", data.data.products);
                     setProducts([]);
                 }
             } catch (error) {

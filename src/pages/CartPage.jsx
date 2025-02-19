@@ -28,6 +28,7 @@ function CartPage({products, address}) {
                 margin: "20px 0",
             }}>Общая сумма: {countSum(cart)}</p>
 
+
             <button className="btn btn-primary" onClick={() => createOrder({ products: cartToIds(cart), address: "Какой-то адрес", fullAmount: countSum(cart) })}>
                 Оформить заказ
             </button>
@@ -40,13 +41,20 @@ async function createOrder({products, address, fullAmount}) {
     try {
         const data = await OrderService.createOrder({products, address, fullAmount});
         console.log("created order: ", data.order);
-        alert(`Заказ успешно создан! ID: ${data.order.id}`);
+        console.log(`Заказ успешно создан! ID: ${data.order.id}`);
+        alert(`Заказ успешно создан!`);
     } catch (error) {
         alert("Ошибка при оформлении заказа.");
     }
 }
 
 function cartToIds(cart) {
+    console.log("cartToIds cart: ", cart);
+    console.log("cartToIds cartIds: ", cart.map(product => ({
+        productId: product.id,
+        quantity: product.quantity
+    })));
+
     return cart.map(product => ({
         productId: product.id,
         quantity: product.quantity
