@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {Link, Route, Routes, useLocation} from 'react-router-dom';
-import ProductList from './pages/ProductList';
+import ProductList from './components/ProductList';
 import CartPage from './pages/CartPage';
 import {CartProvider} from "./context/CartContext";
 import CartButton from "./components/buttons/CartButton/CartButton";
 import MainButton from "./components/buttons/MainButton";
+import OrdersPage from "./pages/OrdersPage";
 
 function App() {
     const [category, setCategory] = useState("pizza");
@@ -30,6 +31,9 @@ function App() {
                     <Route path="/cart" element={<CartPage/>}/>
                 </Routes>
             </CartProvider>
+            <Routes>
+                <Route path="/orders" element={<OrdersPage/>}/>
+            </Routes>
         </div>
     );
 }

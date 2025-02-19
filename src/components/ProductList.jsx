@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductItem from '../components/items/ProductItem';
+import ProductItem from './items/ProductItem';
 import '../styles/styles.css';
 import useProducts from "../hooks/useProducts";
 

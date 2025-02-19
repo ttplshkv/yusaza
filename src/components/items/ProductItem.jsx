@@ -14,7 +14,7 @@ const ProductItem = ({product}) => {
                     <img className="card-img-top custom-img" src={product.image} alt={product.name}/>
                     <div className="card-body d-flex flex-column">
                     <h5 className="card-title text-center">{product.name}</h5>
-                        <p style={{textAlign: 'center'}}>{product.description}</p>
+                        <p>{product.description}</p>
                     <h5 className="card-text text-muted text-center">{product.price} ₽</h5>
 
                     {quantity === 0 ? (

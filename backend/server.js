@@ -33,6 +33,20 @@ app.get('/api/products', async (req, res) => {
     }
 });
 
+app.get('/api/orders', async (req, res) => {
+    try {
+        const orders = await Order.find();
+
+        res.status(200).json({
+            message: "Заказы успешно получены",
+            orders: orders
+        });
+    } catch (error) {
+        console.error('Ошибка при получении заказов:', error);
+        res.status(500).json({message: 'Ошибка сервера'});
+    }
+});
+
 app.post('/api/orders', async (req, res) => {
     try {
         const {products, address, fullAmount} = req.body;
@@ -55,10 +69,7 @@ app.post('/api/orders', async (req, res) => {
         await order.save();
 
         res.status(200).json({
-            message: 'Заказ успешно создан', order: {
-                ...order.toObject(),
-                id: order._id, // Добавляем id как _id
-            }
+            message: 'Заказ успешно создан', order: order
         });
     } catch (error) {
         console.error('Ошибка при получении продуктов:', error);

@@ -18,10 +18,31 @@
 }
 
 .custom-card {
-  height: 350px;
+  height: 350px; /* Фиксированная высота карточки */
   border-width: 2px;
   border-color: #b9c6ff;
+  display: flex;
+  flex-direction: column;
 }
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Растягивает card-body на всю доступную высоту */
+}
+
+.card-body p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Ограничение в 2 строки */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-grow: 1; /* Заполняет пространство между заголовком и кнопкой */
+}
+
+.card-body .btn {
+  margin-top: auto; /* Заставляет кнопку всегда быть внизу */
+}
+
 
 .menu-container {
   padding-top: 30px;

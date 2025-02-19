@@ -16,6 +16,19 @@ const ProductService = {
             throw error;
         }
     },
+    async getAllOrders() {
+        try {
+            const response = await axios.get("http://localhost:5000/api/orders");
+
+            if (!response.status) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 };
 
 export default ProductService;

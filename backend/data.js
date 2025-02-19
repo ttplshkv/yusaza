@@ -8,10 +8,10 @@ mongoose.connect('mongodb://localhost:27017/food_delivery', {
 
 const pizzas = [
     {name: "Маргарита", description: "Какое-то описание", price: 400, image: "/images/margo.jpg"},
-    {name: "Пепперони", description: "Какое-то описание", price: 500, image: "/images/peppe.jpg"},
+    {name: "Пепперони", description: "Пепперони, моцарелла, томатный соус", price: 500, image: "/images/peppe.jpg"},
     {name: "Четыре сыра", description: "Какое-то описание", price: 600, image: "/images/4-cheese.jpg"},
     {name: "Песто", description: "Какое-то описание", price: 400, image: "/images/pe100.jpg"},
-    {name: "Гавайская", description: "Какое-то описание", price: 500, image: "/images/peppe.jpg"},
+    {name: "Гавайская", description: "Цыпленок, ананасы, моцарелла, фирменный соус альфредо", price: 500, image: "/images/peppe.jpg"},
     {name: "Ультра острая", description: "Какое-то описание", price: 600, image: "/images/4-cheese.jpg"},
     {name: "Ультра острая", description: "Какое-то описание", price: 600, image: "/images/4-cheese.jpg"},
     {name: "Ультра острая", description: "Какое-то описание", price: 600, image: "/images/4-cheese.jpg"}
