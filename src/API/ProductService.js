@@ -34,6 +34,20 @@ const ProductService = {
             console.error("Ошибка при запросе продуктов:", error);
             return [];
         }
+    },
+    async getProductByIds(ids) {
+        try {
+            const response = await axios.get(`http://localhost:5000/api/products/by-ids?ids=${ids.join(',')}`);
+
+            if (!response.status) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            return response.data.products;
+        } catch (error) {
+            console.error("Ошибка при запросе продуктов:", error);
+            return [];
+        }
     }
 }
 

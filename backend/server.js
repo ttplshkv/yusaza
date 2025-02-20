@@ -33,6 +33,26 @@ app.get('/api/products', async (req, res) => {
     }
 });
 
+app.get('/api/products/by-ids', async (req, res) => {
+    try {
+        const { ids } = req.query;
+        if (!ids) {
+            return res.status(400).json({ message: "Не переданы ID продуктов" });
+        }
+
+        const productIds = ids.split(','); // Преобразуем строку в массив
+        const products = await Product.find({ _id: { $in: productIds } });
+
+        res.status(200).json({
+            message: "Продукты успешно получены",
+            products: products
+        });
+    } catch (error) {
+        console.error("Ошибка при получении продуктов:", error);
+        res.status(500).json({ message: "Ошибка сервера" });
+    }
+});
+
 app.get('/api/products/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -53,6 +73,7 @@ app.get('/api/products/:id', async (req, res) => {
         res.status(500).json({ message: "Ошибка сервера" });
     }
 });
+
 
 
 app.get('/api/orders', async (req, res) => {

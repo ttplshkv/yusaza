@@ -15,14 +15,14 @@ const OrderItem = ({ order }) => {
             <p><strong>Сумма заказа:</strong> {order.fullAmount} ₽</p>
 
             <h3 className="mt-2 font-semibold">Товары:</h3>
-            <ul className="list-disc pl-4">
-                {products.map((item) => (
-                    <li key={item._id}>
-                        <p><strong>{item.title}</strong></p>
-                        <p>Количество: {item.quantity}</p>
-                    </li>
+            <div>
+                {products.map((product) => (
+                    <div key={product._id} style={{border: "1px solid black", padding: "5px"}}>
+                        <span className="mr-auto"><strong>{product.name}</strong></span>
+                        <span> Количество: {product.quantity}</span>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };
