@@ -8,7 +8,8 @@ const orderSchema = new mongoose.Schema({
         }
     ],
     address: String,
-    fullAmount: Number
+    fullAmount: Number,
+    isCompleted: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('Order', orderSchema);

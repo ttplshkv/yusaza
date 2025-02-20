@@ -14,7 +14,7 @@ const useOrderProducts = (order) => {
         setError(null);
         try {
             const productIds = order.products.map((item) => item.productId);
-            const fetchProducts = await ProductService.getProductByIds(productIds);
+            const fetchProducts = await ProductService.getProductsByIds(productIds);
 
             setProducts(fetchProducts);
         } catch (error) {

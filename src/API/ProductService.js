@@ -35,7 +35,7 @@ const ProductService = {
             return [];
         }
     },
-    async getProductByIds(ids) {
+    async getProductsByIds(ids) {
         try {
             const response = await axios.get(`http://localhost:5000/api/products/by-ids?ids=${ids.join(',')}`);
 
