@@ -25,7 +25,7 @@ const OrdersPage = ({isCompleted}) => {
             <h1>Страница заказов</h1>
             <OrderList isCompleted={isCompleted}/>
         </div>
-);
+    );
 };
 
 export default OrdersPage;

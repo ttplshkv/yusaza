@@ -39,15 +39,15 @@ router.post("/", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
     try {
-        const updatedOrder = req.body; // Получаем все обновленные поля из запроса
+        const data = req.body; // Получаем все обновленные поля из запроса
 
-        if (!updatedOrder || Object.keys(updatedOrder).length === 0) {
+        if (!data || Object.keys(data).length === 0) {
             return res.status(400).json({ message: "Нет данных для обновления" });
         }
 
         const result = await Order.updateOne(
             { _id: new ObjectId(req.params.id) },
-            { $set: updatedOrder }
+            { $set: data }
         );
 
         if (result.matchedCount === 0) {

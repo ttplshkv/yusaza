@@ -1,9 +1,11 @@
 import React from "react";
 import { format } from "date-fns";
 import useOrderProducts from "../../hooks/useOrderProducts";
+import useOrderUpdate from "../../hooks/useOrderUpdate";
 
 const OrderItem = ({ order }) => {
     const { products, error } = useOrderProducts(order);
+    const {update, errorUpdate} = useOrderUpdate();
 
     if (error) return <div className="error">{error}</div>;
 
@@ -48,6 +50,19 @@ const OrderItem = ({ order }) => {
                     <h3 className="font-semibold">Дата: {completedDate}</h3>
                     <h3 className="font-semibold">Время: {completedTime}</h3>
                 </div>
+            )}
+
+            {!order.isCompleted && (
+                <button className="btn btn-danger" onClick={async () => {
+                    try {
+                        const updatedOrder = await update(order._id, {isCompleted: true, completedAt: new Date()});
+                        console.log("Обновленный заказ:", updatedOrder);
+                    } catch (error) {
+                        alert(error.message);
+                    }
+                }}>
+                    Завершить заказ
+                </button>
             )}
         </div>
     );

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ProductService = {
+const OrderService = {
     async createOrder({ products, address, fullAmount }) {
         try {
             const id = 1;
@@ -28,7 +28,22 @@ const ProductService = {
             console.log(error);
             throw error;
         }
+    },
+    async updateOrder(id, data) {
+        try {
+            const updatedOrder = await axios.patch (`http://localhost:5000/api/orders/${id}`, data);
+
+            if (!updatedOrder) {
+                throw new Error("Заказ не найден");
+            }
+
+            return updatedOrder;
+        } catch (error) {
+            console.error("Ошибка при обновлении заказа:", error);
+            throw new Error("Не удалось обновить заказ");
+        }
     }
+
 };
 
-export default ProductService;
+export default OrderService;
