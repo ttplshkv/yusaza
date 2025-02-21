@@ -9,7 +9,8 @@ const orderSchema = new mongoose.Schema({
     ],
     address: String,
     fullAmount: Number,
-    isCompleted: { type: Boolean, default: false }
+    isCompleted: { type: Boolean, default: false },
+    completedAt: { type: Date, default: null },
 }, { timestamps: true }); // Добавляем автоматические метки времени;
 
 module.exports = mongoose.model('Order', orderSchema);

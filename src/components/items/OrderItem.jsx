@@ -1,14 +1,18 @@
-import React from 'react';
+import React from "react";
 import { format } from "date-fns";
-
 import useOrderProducts from "../../hooks/useOrderProducts";
 
-const OrderItem = ({order}) => {
-    const {products, error} = useOrderProducts(order);
+const OrderItem = ({ order }) => {
+    const { products, error } = useOrderProducts(order);
 
-    if (error) {
-        return <div className="error">{error}</div>;
-    }
+    if (error) return <div className="error">{error}</div>;
+
+    // Форматирование дат
+    const createdDate = order?.createdAt ? format(new Date(order.createdAt), "dd.MM.yyyy") : "нет данных";
+    const createdTime = order?.createdAt ? format(new Date(order.createdAt), "HH:mm") : "нет данных";
+
+    const completedDate = order?.completedAt ? format(new Date(order.completedAt), "dd.MM.yyyy") : "нет данных";
+    const completedTime = order?.completedAt ? format(new Date(order.completedAt), "HH:mm") : "нет данных";
 
     return (
         <div className="border p-4 rounded-lg shadow-md">
@@ -16,28 +20,35 @@ const OrderItem = ({order}) => {
             <p><strong>Адрес доставки:</strong> {order.address}</p>
             <p><strong>Сумма заказа:</strong> {order.fullAmount} ₽</p>
 
-            {order.isCompleted ? <p>Выполнено</p> : <p>В процессе...</p>}
+                {order.isCompleted
+                    ? <p><strong>Статус: </strong> выполнено</p>
+                    : <p><strong>Статус: </strong> в процессе...</p>
+                }
 
             <h3 className="mt-2 font-semibold">Товары:</h3>
-            <div>
+            <div className="grid gap-2">
                 {products.map((product) => {
                     const orderProduct = order.products.find(p => p.productId === product._id);
 
                     return (
-                        <div key={product._id} style={{border: "1px solid black", padding: "5px"}}>
-                            <span className="mr-auto"><strong>{product.name}</strong></span>
-                            <span> Количество: {orderProduct ? orderProduct.quantity : "Не найдено"}</span>
+                        <div key={product._id} className="border p-2 rounded-md shadow-sm flex justify-between">
+                            <strong>{product.name}</strong>
+                            <span>, количество: {orderProduct?.quantity ?? "Не найдено"}</span>
                         </div>
                     );
                 })}
             </div>
 
-            <h3 className="mt-2 font-semibold">
-                Дата: {order.createdAt ? format(new Date(order.createdAt), "dd.MM.yyyy") : "нет данных"}
-            </h3>
-            <h3 className="mt-2 font-semibold">
-                Время: {order.createdAt ? format(new Date(order.createdAt), "HH:mm") : "нет данных"}
-            </h3>
+            <h3 className="mt-2 font-semibold">Дата создания: {createdDate}</h3>
+            <h3 className="mt-2 font-semibold">Время создания: {createdTime}</h3>
+
+            {order.isCompleted && (
+                <div className="mt-4 p-2 bg-gray-100 rounded-lg">
+                    <h2 className="text-green-600 font-bold">Выполнено:</h2>
+                    <h3 className="font-semibold">Дата: {completedDate}</h3>
+                    <h3 className="font-semibold">Время: {completedTime}</h3>
+                </div>
+            )}
         </div>
     );
 };
