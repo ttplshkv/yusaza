@@ -1,4 +1,6 @@
 import React from 'react';
+import { format } from "date-fns";
+
 import useOrderProducts from "../../hooks/useOrderProducts";
 
 const OrderItem = ({order}) => {
@@ -29,6 +31,13 @@ const OrderItem = ({order}) => {
                     );
                 })}
             </div>
+
+            <h3 className="mt-2 font-semibold">
+                Дата: {order.createdAt ? format(new Date(order.createdAt), "dd.MM.yyyy") : "нет данных"}
+            </h3>
+            <h3 className="mt-2 font-semibold">
+                Время: {order.createdAt ? format(new Date(order.createdAt), "HH:mm") : "нет данных"}
+            </h3>
         </div>
     );
 };

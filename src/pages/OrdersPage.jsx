@@ -1,11 +1,11 @@
 import React from 'react';
 import OrderList from "../components/OrderList";
 
-const OrdersPage = () => {
+const OrdersPage = ({ isCompleted }) => {
     return (
         <div>
             <h1>Страница заказов</h1>
-            <OrderList/>
+            <OrderList isCompleted={isCompleted} />
         </div>
     );
 };

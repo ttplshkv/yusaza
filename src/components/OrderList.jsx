@@ -2,7 +2,7 @@ import React from 'react';
 import useOrders from "../hooks/useOrders";
 import OrderItem from "./items/OrderItem";
 
-const OrderList = () => {
+const OrderList = ({isCompleted}) => {
     const {orders, error} = useOrders();
 
     if (error) {
@@ -11,9 +11,11 @@ const OrderList = () => {
 
     return (
         <div>
-            {orders.map((order) => (
-                <OrderItem key={order._id} order={order}/>
-            ))}
+            {orders
+                .filter(order => isCompleted ? order.isCompleted : !order.isCompleted)
+                .map(order => (
+                    <OrderItem key={order._id} order={order}/>
+                ))}
         </div>
     );
 };

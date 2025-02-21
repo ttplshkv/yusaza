@@ -10,6 +10,6 @@ const orderSchema = new mongoose.Schema({
     address: String,
     fullAmount: Number,
     isCompleted: { type: Boolean, default: false }
-});
+}, { timestamps: true }); // Добавляем автоматические метки времени;
 
 module.exports = mongoose.model('Order', orderSchema);
