@@ -4,9 +4,9 @@ import {Link} from 'react-router-dom';
 const MainButton = () => {
     return (
         <Link to="/">
-            <button className="btn btn-primary">
-                Главная страница
-            </button>
+                <button style={{color: "gray"}} className="btn">
+                    Главная страница
+                </button>
         </Link>
     );
 };

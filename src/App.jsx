@@ -38,11 +38,7 @@ function App() {
                 }/>
 
                 <Route path="/orders" element={
-                    <OrdersPage isCompleted={false}/>
-                }/>
-
-                <Route path="/orders/complete" element={
-                    <OrdersPage isCompleted={true}/>
+                    <OrdersPage/>
                 }/>
             </Routes>
         </div>
