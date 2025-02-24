@@ -8,8 +8,7 @@ function CartPage({products, address}) {
     const {cart} = useCart();
 
     return (
-        <div>
-            <MainButton/>
+        <div className="cart-page">
             <div style={{textAlign: "center"}}>
                 <h1 style={{textAlign: "center"}}>Корзина</h1>
                 {cart.length === 0 ? (
@@ -25,7 +24,7 @@ function CartPage({products, address}) {
 
             <p style={{
                 borderTop: "1px solid #ccc",
-                margin: "20px 0",
+                margin: "20px 0"
             }}>Общая сумма: {countSum(cart)}</p>
 
 
