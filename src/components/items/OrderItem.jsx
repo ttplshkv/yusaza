@@ -19,6 +19,8 @@ const OrderItem = ({ order }) => {
     return (
         <div className="border p-4 rounded-lg shadow-md">
             <h2 className="text-lg font-bold">Заказ №{order._id}</h2>
+            <p><strong>Имя заказчика:</strong> {order.personName}</p>
+            <p><strong>Номер телефона:</strong> {order.number}</p>
             <p><strong>Адрес доставки:</strong> {order.address}</p>
             <p><strong>Сумма заказа:</strong> {order.fullAmount} ₽</p>
 
@@ -29,7 +31,7 @@ const OrderItem = ({ order }) => {
 
             <h3 className="mt-2 font-semibold">Товары:</h3>
             <div className="grid gap-2">
-                {products.map((product) => {
+                {(products || []).map((product) => {
                     const orderProduct = order.products.find(p => p.productId === product._id);
 
                     return (
@@ -57,6 +59,7 @@ const OrderItem = ({ order }) => {
                     try {
                         const updatedOrder = await update(order._id, {isCompleted: true, completedAt: new Date()});
                         console.log("Обновленный заказ:", updatedOrder);
+                        window.location.reload(true);
                     } catch (error) {
                         alert(error.message);
                     }

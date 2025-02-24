@@ -5,6 +5,10 @@ import OrderItem from "./items/OrderItem";
 const OrderList = ({isCompleted}) => {
     const {orders, error} = useOrders();
 
+    if (!orders) {
+        return <div>Загрузка...</div>;  // Показать загрузку, пока данные не пришли
+    }
+
     if (error) {
         return <div className="error">{error}</div>;
     }

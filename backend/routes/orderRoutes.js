@@ -15,19 +15,21 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        const { products, address, fullAmount } = req.body;
+        const orderData = req.body;
 
-        if (!products || !Array.isArray(products) || products.length === 0 || !address || !fullAmount) {
+        console.log("Полученный заказ:", req.body);
+
+        if (!orderData.products || !Array.isArray(orderData.products) || orderData.products.length === 0 || !orderData.address || !orderData.fullAmount) {
             return res.status(400).json({ message: "Некорректные данные заказа" });
         }
 
-        for (const item of products) {
+        for (const item of orderData.products) {
             if (!item.productId || !item.quantity) {
                 return res.status(400).json({ message: "Каждый продукт должен содержать productId и quantity" });
             }
         }
 
-        const order = new Order({ products, address, fullAmount });
+        const order = new Order(orderData);
         await order.save();
 
         res.status(200).json({ message: "Заказ успешно создан", order });

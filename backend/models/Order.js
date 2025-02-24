@@ -7,6 +7,8 @@ const orderSchema = new mongoose.Schema({
             quantity: Number
         }
     ],
+    personName: String,
+    number: String,
     address: String,
     fullAmount: Number,
     isCompleted: { type: Boolean, default: false },

@@ -1,19 +1,12 @@
-import { useState } from "react";
-import axios from "axios";
+import useFetch from "./useFetch";
 import OrderService from "../API/OrderService";
 
 const useOrderUpdate = () => {
-    const [error, setError] = useState(null);
+    const { data, error, fetchData } = useFetch(OrderService.updateOrder);
 
-    const update = async (id, data) => {
-        try {
-            setError(null);
-            const response = await OrderService.updateOrder(id, data);
-            return response.data;
-        } catch (err) {
-            console.error("Ошибка при обновлении заказа:", err);
-            setError("Ошибка при обновлении заказа");
-        }
+    const update = async (id, updateData) => {
+        await fetchData(id, updateData);
+        return data; // Возвращаем обновленный заказ
     };
 
     return { update, error };

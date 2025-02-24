@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useCart} from '../context/CartContext';
+import MainButton from "../components/buttons/MainButton";
 import ProductItem from "../components/items/ProductItem";
 import OrderService from "../API/OrderService";
 
@@ -7,58 +8,45 @@ function CartPage({products, address}) {
     const {cart} = useCart();
 
     return (
-        <div className="cart-page">
-            <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 0"}}>
-
-                <div style={{alignItems: "center"}}></div>
-
-                <h1>
-                    Корзина
-                </h1>
-
+        <div>
+            <MainButton/>
+            <div style={{textAlign: "center"}}>
+                <h1 style={{textAlign: "center"}}>Корзина</h1>
+                {cart.length === 0 ? (
+                    <h3>Корзина пуста</h3>
+                ) : (
+                    <ul className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 g-3 d-flex justify-content-center">
+                        {cart.map((product) => (
+                            <ProductItem key={product.id} product={product}/>
+                        ))}
+                    </ul>
+                )}
             </div>
 
-            {/* Если корзина пустая */}
-            {cart.length === 0 ? (
-                <h3 style={{marginTop: "50px"}}>Корзина пуста</h3>
-            ) : (
-                <ul className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 g-3 d-flex justify-content-center">
-                    {cart.map((product) => (
-                        <ProductItem key={product.id} product={product}/>
-                    ))}
-                </ul>
-            )}
-
-            {/* Разделитель и итоговая сумма */}
             <p style={{
                 borderTop: "1px solid #ccc",
                 margin: "20px 0",
-            }}>
-                Общая сумма: {countSum(cart)}
-            </p>
+            }}>Общая сумма: {countSum(cart)}</p>
 
-            {/* Кнопка оформления заказа */}
-            <button className="btn btn-primary" onClick={() => createOrder({
-                products: cartToIds(cart),
-                address: "Какой-то адрес",
-                fullAmount: countSum(cart)
-            })}>
+
+            <button className="btn btn-primary" onClick={() => createOrder({ products: cartToIds(cart), personName: "Какое-то имя", number: "Какой-то номер телефона", address: "Какой-то адрес", fullAmount: countSum(cart) })}>
                 Оформить заказ
             </button>
+
         </div>
     );
 };
 
-async function createOrder({products, address, fullAmount}) {
-    if (products.length === 0) {
+async function createOrder(orderData) {
+    if (orderData.products.length === 0) {
         alert("Корзина пуста. Добавьте что-то для оформления заказа");
         return;
     }
 
     try {
-        const data = await OrderService.createOrder({products, address, fullAmount});
+        const data = await OrderService.createOrder(orderData);
         console.log("created order: ", data.order);
-        console.log(`Заказ успешно создан! ID: ${data.order._id}`);
+        console.log(`Заказ успешно создан! ID: ${data.order.id}`);
         alert(`Заказ успешно создан!`);
     } catch (error) {
         alert("Ошибка при оформлении заказа.");

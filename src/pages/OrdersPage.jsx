@@ -7,7 +7,7 @@ const OrdersPage = ({isCompleted}) => {
         <div>
             {location.pathname === '/orders' && (
                 <Link to={`/orders/complete`}>
-                    <button className="btn">
+                    <button className="btn btn-outline-primary position-absolute end-0">
                         Выполненные заказы
                     </button>
                 </Link>
@@ -16,13 +16,14 @@ const OrdersPage = ({isCompleted}) => {
 
             {location.pathname === '/orders/complete' && (
                 <Link to={`/orders`}>
-                    <button className="btn">
+                    <button className="btn btn-outline-primary position-absolute end-0">
                         Не выполненные заказы
                     </button>
                 </Link>
             )}
 
-            <h1>Страница заказов</h1>
+            <h1 className="text-center">Страница заказов</h1>
+
             <OrderList isCompleted={isCompleted}/>
         </div>
     );

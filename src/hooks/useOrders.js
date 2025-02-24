@@ -1,36 +1,25 @@
-import {useState, useEffect} from "react";
+import { useEffect } from "react";
+import useFetch from "./useFetch";
 import OrderService from "../API/OrderService";
 
-const loadOrders = (setOrders, setError) => {
-    setError(null);
-
-    OrderService.getAllOrders()
-        .then((data) => {
-            if (data && Array.isArray(data.data.orders)) {
-                setOrders(data.data.orders);
-                console.log("Полученные заказы от сервера", data.data.orders);
+const useOrders = () => {
+    const { data, error, fetchData } = useFetch(() =>
+        OrderService.getAllOrders().then((response) => {
+            if (response && Array.isArray(response.data.orders)) {
+                console.log("Полученные заказы от сервера", response.data.orders);
+                return response.data.orders;
             } else {
-                console.error("Ожидался массив, но получено:", data.data.orders);
-                setOrders([]);
+                console.error("Ожидался массив, но получено:", response.data.orders);
+                return [];
             }
         })
-        .catch((error) => {
-            console.error("Ошибка при загрузке заказов:", error);
-            setError("Произошла ошибка при загрузке заказов");
-            setOrders([]);
-        });
-};
-
-const useOrders = () => {
-    const [orders, setOrders] = useState([]);
-    const [error, setError] = useState(null);
+    );
 
     useEffect(() => {
-        loadOrders(setOrders, setError);
-    }, []); // Пустой массив зависимостей → вызов только 1 раз при монтировании
+        fetchData();
+    }, []);
 
-    return {orders, error};
-
+    return { orders: data ?? [], error };
 };
 
 export default useOrders;

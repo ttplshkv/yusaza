@@ -6,6 +6,10 @@ import useProducts from "../hooks/useProducts";
 const ProductList = ({category}) => {
     const {products, error} = useProducts(category);
 
+    if (!products) {
+        return <div>Загрузка...</div>;  // Показать загрузку, пока данные не пришли
+    }
+
     if (error) {
         return <div className="error">{error}</div>;
     }

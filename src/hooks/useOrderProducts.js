@@ -1,31 +1,30 @@
-import {useState, useEffect} from "react";
+import {useEffect} from "react";
 import ProductService from "../API/ProductService";
+import useFetch from "./useFetch";
 
 const useOrderProducts = (order) => {
-    const [products, setProducts] = useState([]);
-    const [error, setError] = useState(null);
+    const {data: products, error, fetchData} = useFetch(ProductService.getProductsByIds);
 
-    const fetchProducts = async () => {
+    useEffect(() => {
         if (!order?.products?.length) {
-            setProducts([]);
+            fetchData([])
+                .then(() => {
+                    console.log("Данные успешно загружены");
+                })
+                .catch((error) => {
+                    console.error("Ошибка при загрузке данных:", error);
+                });
             return;
         }
 
-        setError(null);
-        try {
-            const productIds = order.products.map((item) => item.productId);
-            const fetchProducts = await ProductService.getProductsByIds(productIds);
-
-            setProducts(fetchProducts);
-        } catch (error) {
-            console.error("Ошибка при загрузке товаров заказа:", error);
-            setError("Ошибка загрузки товаров");
-            setProducts([]);
-        }
-    };
-
-    useEffect(() => {
-        fetchProducts();
+        const productIds = order.products.map((item) => item.productId);
+        fetchData(productIds)
+            .then(() => {
+                console.log("Данные успешно загружены");
+            })
+            .catch((error) => {
+                console.error("Ошибка при загрузке данных:", error);
+            });
     }, [order]);
 
     return {products, error};

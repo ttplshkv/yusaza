@@ -1,15 +1,10 @@
 import axios from "axios";
 
 const OrderService = {
-    async createOrder({ products, address, fullAmount }) {
+    async createOrder(orderData) {
         try {
             const id = 1;
-            const response = await axios.post("http://localhost:5000/api/orders", {
-                id,
-                products,
-                address,
-                fullAmount
-            });
+            const response = await axios.post("http://localhost:5000/api/orders", orderData);
             return response.data;
         } catch (error) {
             console.error("Ошибка при создании заказа:", error);
@@ -31,7 +26,7 @@ const OrderService = {
     },
     async updateOrder(id, data) {
         try {
-            const updatedOrder = await axios.patch (`http://localhost:5000/api/orders/${id}`, data);
+            const updatedOrder = await axios.patch(`http://localhost:5000/api/orders/${id}`, data);
 
             if (!updatedOrder) {
                 throw new Error("Заказ не найден");
