@@ -37,6 +37,10 @@
   flex-grow: 1; /* Растягивает card-body на всю доступную высоту */
 }
 
+.card-title {
+  font-weight: bold;
+}
+
 .card-body p {
   display: -webkit-box;
   -webkit-line-clamp: 2; /* Ограничение в 2 строки */
