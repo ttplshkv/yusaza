@@ -46,7 +46,7 @@ async function createOrder(orderData) {
     try {
         const data = await OrderService.createOrder(orderData);
         console.log("created order: ", data.order);
-        console.log(`Заказ успешно создан! ID: ${data.order.id}`);
+        console.log(`Заказ успешно создан! ID: ${data.order._id}`);
         alert(`Заказ успешно создан!`);
     } catch (error) {
         alert("Ошибка при оформлении заказа.");
